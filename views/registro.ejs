@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Criar conta</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <main class="auth-shell">
+    <section class="visual">
+      <div class="brand">Iapois 2.0</div>
+
+      <div>
+        <div class="eyebrow">Comece por aqui</div>
+        <h2>Uma conta.<br>Novas <span>possibilidades.</span></h2>
+        <p>Crie sua conta em poucos passos. Antes de liberar o acesso, vamos confirmar seu e-mail.</p>
+      </div>
+
+      <div class="visual-foot">01 / 03 · Criar conta</div>
+    </section>
+
+    <section class="form-panel">
+      <h1>Criar sua conta</h1>
+      <p class="sub">Preencha os campos para começar.</p>
+
+      <% if (typeof erro !== 'undefined' && erro) { %>
+        <div class="alert alert-danger"><%= erro %></div>
+      <% } %>
+
+      <form action="/registro" method="POST">
+        <div class="mb-3">
+          <label class="form-label" for="nome">Nome</label>
+          <input class="form-control" id="nome" name="nome"
+            type="text" autocomplete="name"
+            placeholder="Como podemos te chamar?" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="email">E-mail</label>
+          <input class="form-control" id="email" name="email"
+            type="email" autocomplete="email"
+            placeholder="voce@exemplo.com" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="senha">Senha</label>
+          <input class="form-control" id="senha" name="senha"
+            type="password" autocomplete="new-password"
+            minlength="8" placeholder="Pelo menos 8 caracteres" required>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label" for="confirmarSenha">Confirmar senha</label>
+          <input class="form-control" id="confirmarSenha" name="confirmarSenha"
+            type="password" autocomplete="new-password"
+            minlength="8" placeholder="Digite a senha novamente" required>
+        </div>
+
+        <button class="btn btn-main w-100" type="submit">
+          Criar conta ↗
+        </button>
+      </form>
+
+      <div class="auth-bottom">
+        Já tem uma conta? <a href="/">Entrar</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
