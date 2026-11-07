@@ -50,6 +50,19 @@ app.post('/login', async (req,res)=>{
     }
 })
 
+//registro
+
+app.post("/registro", async (req,res)=>{
+    const{senha,confirmarSenha}=req.body
+    if(senha !== confirmarSenha){
+        res.send(`
+            <script>
+            alert("as senhas não coincidem")
+            window.location.href='/registro'
+            </script>
+            `)
+    }
+})
 
 
 app.listen(port,()=>{
