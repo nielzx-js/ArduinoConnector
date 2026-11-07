@@ -5,7 +5,8 @@
   --line: #28282e;
   --text: #f4f4f5;
   --muted: #96969f;
-  --accent: #6f9fe6;
+  --accent: #0B1B3A;
+  --accent-text: #7fa3d8;
 }
 
 * {
@@ -39,8 +40,8 @@ body {
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(ellipse at 18% 78%, #142744 0, transparent 38%),
-    linear-gradient(145deg, #101827, #0d0d10 60%);
+    radial-gradient(ellipse at 18% 78%, #091bab 0, transparent 38%),
+    linear-gradient(145deg, #091bab, #0d0d10 60%);
 }
 
 .brand {
@@ -51,7 +52,7 @@ body {
 }
 
 .eyebrow {
-  color: var(--accent);
+  color: var(--accent-text);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: .2em;
@@ -68,7 +69,7 @@ body {
 }
 
 .visual h2 span {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .visual p {
@@ -125,7 +126,7 @@ body {
   background: #151519;
   color: var(--text);
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px #6f9fe619;
+  box-shadow: 0 0 0 3px #0B1B3A33;
 }
 
 .form-control::placeholder {
@@ -136,19 +137,19 @@ body {
   background: var(--accent);
   border: 0;
   border-radius: 7px;
-  color: #101827;
+  color: var(--text);
   font-size: 13px;
   font-weight: 750;
   padding: 13px;
 }
 
 .btn-main:hover {
-  background: #8ab3f3;
-  color: #101827;
+  background: #142b50;
+  color: var(--text);
 }
 
 a {
-  color: var(--accent);
+  color: var(--accent-text);
   text-decoration: none;
 }
 
