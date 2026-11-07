@@ -22,6 +22,36 @@ app.get('/registro',(req,res)=>{
 app.get('/verificacao',(req,res)=>{
     res.render('verificacao')
 })
+
+//login
+app.post('/login', async (req,res)=>{
+    const {email,senha} = req.body
+    const query=`
+    SELECT * FROM usuarios
+    WHERE email = $1
+    AND
+    senha = $2
+    `
+    const result = await pool.query(query,[email,senha])
+    if (result.rowCount>0){
+        res.send(`
+            <script>
+                window.location.href='/inicio'
+            </script>
+            `)
+    }
+    else{
+        res.send(`
+            <script>
+            alert("Credenciais inválidas")
+            window.location.href='/'
+            </script>
+            `)
+    }
+})
+
+
+
 app.listen(port,()=>{
-    console.log(`http://localhost:${3000}`)
+    console.log(`http://localhost:${port}`)
 })
