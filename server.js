@@ -32,7 +32,7 @@ app.post('/login', async (req,res)=>{
     SELECT * FROM usuarios
     WHERE email = $1
     AND
-    senha = $2
+    senhaHash = $2
     `
     const result = await pool.query(query,[email,senha])
     if (result.rowCount>0){
@@ -68,18 +68,15 @@ app.post("/registro", async (req,res)=>{
         const {nome,email,senha} = req.body
         const senhaHash= await bcrypt.hash(senha,10)
         const query1=`
-        INSERT into usuarios(nome,email,senha)
+        INSERT into usuarios(nome,email,senhaHash)
         VALUES($1,$2,$3)
         `
-        const result=await pool.query(query1[nome,email,senhaHash])
-        if(result.rowCount>0){
-            res.send(`
-                <script>
-                alert("registro feito com sucesso")
-                window.location.href='/'
-                <script>
-                `)
-        }
+        const result=await pool.query(query1,[nome,email,senhaHash])
+      res.send(`
+            <script>    
+            window.location.href='/'
+            </script>
+            `)
     }
 })
 
