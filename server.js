@@ -10,6 +10,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 const port = process.env.PORT
 app.use(express.urlencoded({ extended: true }))
+const bcrypt=require('bcrypt')
+
 
 app.get('/',(req,res)=>{
     res.render('login')
@@ -61,6 +63,23 @@ app.post("/registro", async (req,res)=>{
             window.location.href='/registro'
             </script>
             `)
+    }
+    else{
+        const {nome,email,senha} = req.body
+        const senhaHash= await bcrypt.hash(senha,10)
+        const query1=`
+        INSERT into usuarios(nome,email,senha)
+        VALUES($1,$2,$3)
+        `
+        const result=await pool.query(query1[nome,email,senhaHash])
+        if(result.rowCount>0){
+            res.send(`
+                <script>
+                alert("registro feito com sucesso")
+                window.location.href='/'
+                <script>
+                `)
+        }
     }
 })
 
