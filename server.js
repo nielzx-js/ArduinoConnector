@@ -30,23 +30,30 @@ app.post('/login', async (req,res)=>{
     const {email,senha} = req.body
     const query=`
     SELECT * FROM usuarios
-    WHERE email = $1
-    AND
-    senhaHash = $2
+    where email=$1
     `
-    const result = await pool.query(query,[email,senha])
-    if (result.rowCount>0){
-        res.send(`
-            <script>
+    const result=await pool.query(query,[email])
+    if(result.rowCount>0){
+        const usuario=result.rows[0]
+        const senhaCorreta=await bcrypt.compare(senha,usuario.senhahash)
+        if(senhaCorreta){
+            res.send(`
+                <script>
                 window.location.href='/inicio'
-            </script>
-            `)
-    }
-    else{
+                </script>
+                `)
+        }else{
+            res.send(`
+                <script>
+                alert("Credenciais inválidas")
+                window.location.href='/'
+                </script>
+                `)
+        }
+    }else{
         res.send(`
             <script>
             alert("Credenciais inválidas")
-            window.location.href='/'
             </script>
             `)
     }
@@ -101,6 +108,7 @@ app.post("/registro", async (req,res)=>{
       
     }
 })
+
 
 
 app.listen(port,()=>{
