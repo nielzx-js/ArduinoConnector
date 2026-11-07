@@ -64,19 +64,41 @@ app.post("/registro", async (req,res)=>{
             </script>
             `)
     }
+
+
+
     else{
         const {nome,email,senha} = req.body
-        const senhaHash= await bcrypt.hash(senha,10)
         const query1=`
+        SELECT * FROM usuarios
+        WHERE email = $1
+        `
+        result=await pool.query(query1,[email])
+        if(result.rowCount>0){
+            res.send(`
+                <script>
+                alert("Usuário já cadastrado")
+                window.location.href='/registro'
+                </script>
+                `)
+        }
+        
+        else{
+        const {nome,email,senha} = req.body
+        const senhaHash= await bcrypt.hash(senha,10)
+        const query2=`
         INSERT into usuarios(nome,email,senhaHash)
         VALUES($1,$2,$3)
         `
-        const result=await pool.query(query1,[nome,email,senhaHash])
-      res.send(`
+        const result2=await pool.query(query2,[nome,email,senhaHash])
+        res.send(`
             <script>    
             window.location.href='/'
             </script>
             `)
+        }
+
+      
     }
 })
 
